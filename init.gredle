@@ -1,0 +1,16 @@
+pipeline {
+    agent {
+        docker { image 'ghcr.io/oracle/oraclelinux7-instantclient:19' }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/edgarcastrovm/db_test.git '
+                sh 'echo "Inicia tarea --------------------------------------------------------------------"'
+                sh "sh db_init.sh"
+                sh 'echo "Termina tarea --------------------------------------------------------------------"'
+            }
+        }
+    }
+}
